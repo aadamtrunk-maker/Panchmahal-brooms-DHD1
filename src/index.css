@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", Georgia, ui-serif, serif;
+  --font-display: "Playfair Display", ui-serif, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-primary: var(--primary);
+  --color-textMain: var(--textMain);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-bg: var(--bg);
+  --color-surfaceHover: var(--surfaceHover);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-light: var(--accent-light);
+}
+
+@layer base {
+  :root {
+    --primary: #5A5A40;
+    --textMain: #2D2D2A;
+    --muted: #8E8E7E;
+    --accent: #A68A64;
+    --surface: #F5F5F0;
+    --bg: #FDFCF8;
+    --surfaceHover: #EAEAEA;
+    --primary-dark: #434330;
+    --accent-dark: #8E7554;
+    --accent-light: #D9C5B2;
+  }
+  
+  .dark {
+    --primary: #D1D1C4;
+    --textMain: #F5F5F0;
+    --muted: #A3A393;
+    --accent: #D4B685;
+    --surface: #2A2A28;
+    --bg: #1A1A18;
+    --surfaceHover: #333330;
+    --primary-dark: #E2E2D7;
+    --accent-dark: #E2CDAA;
+    --accent-light: #8E7554;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--textMain);
+}
