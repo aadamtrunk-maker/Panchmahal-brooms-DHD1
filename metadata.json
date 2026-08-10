@@ -1,0 +1,6 @@
+{
+  "name": "Panchmahal Brooms DHD",
+  "description": "Interactive sales tracking and net profit calculator for chemical cleaner SKUs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

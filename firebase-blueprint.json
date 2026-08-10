@@ -1,0 +1,25 @@
+{
+  "entities": {
+    "StoreData": {
+      "title": "StoreData",
+      "description": "Data for a specific store user",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string" },
+        "skus": { "type": "string", "maxLength": 500000 },
+        "ledgerHistory": { "type": "string", "maxLength": 900000 },
+        "stockCounts": { "type": "string", "maxLength": 100000 },
+        "quantities": { "type": "string", "maxLength": 100000 },
+        "priceOverrides": { "type": "string", "maxLength": 100000 },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["ownerId", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "stores/{userId}": {
+      "schema": "StoreData",
+      "description": "User specific application data"
+    }
+  }
+}

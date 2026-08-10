@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidStoreData(data) {
+      return data.keys().hasAll(['ownerId', 'updatedAt']) 
+        && data.ownerId is string 
+        && data.ownerId.size() > 0
+        && data.ownerId.size() <= 128
+        && (data.keys().hasAny(['skus']) == false || (data.skus is string && data.skus.size() <= 500000))
+        && (data.keys().hasAny(['ledgerHistory']) == false || (data.ledgerHistory is string && data.ledgerHistory.size() <= 900000))
+        && (data.keys().hasAny(['stockCounts']) == false || (data.stockCounts is string && data.stockCounts.size() <= 100000))
+        && (data.keys().hasAny(['quantities']) == false || (data.quantities is string && data.quantities.size() <= 100000))
+        && (data.keys().hasAny(['priceOverrides']) == false || (data.priceOverrides is string && data.priceOverrides.size() <= 100000))
+        && data.updatedAt is number
+        && data.ownerId == request.auth.uid;
+    }
+
+    match /stores/{userId} {
+      allow get: if isSignedIn() && request.auth.uid == userId;
+      
+      allow create: if isSignedIn() 
+        && request.auth.uid == userId
+        && isValidStoreData(incoming());
+        
+      allow update: if isSignedIn() 
+        && request.auth.uid == userId
+        && isValidStoreData(incoming())
+        && incoming().ownerId == existing().ownerId;
+        
+      allow delete: if isSignedIn() && request.auth.uid == userId;
+    }
+  }
+}
